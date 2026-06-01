@@ -20,6 +20,7 @@ vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 32
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
+vim.diagnostic.config({virtual_text = true})
 
 ----- Keymaps ------
 
@@ -343,38 +344,38 @@ dap.configurations.gdscript = {
 }
 
 -- TELESCOPE --
-local install_telescope_fzf = function(ev)
-	local name, kind = ev.data.spec.name, ev.data.kind
-	if name == "telescope-fzf-native.nvim" and (kind == "install" or kind == "update") then
-		vim.system({ "make" }, { cwd = ev.data.path }):wait()
-	end
-end
-vim.api.nvim_create_autocmd("PackChanged", { callback = install_telescope_fzf })
-vim.pack.add({ gh("nvim-lua/plenary.nvim") })
-vim.pack.add({ gh("nvim-telescope/telescope-fzf-native.nvim") })
-vim.pack.add({ gh("nvim-telescope/telescope.nvim") })
-vim.pack.add({ gh("nvim-telescope/telescope-ui-select.nvim") })
-local telescope = require("telescope")
-telescope.setup({
-	extensions = {
-		fzf = {},
-		["ui-select"] = {
-			require("telescope.themes").get_dropdown({}),
-		},
-	},
-	defaults = {
-		file_ignore_patterns = { "node_modules", "venv", "__pycache__" },
-	},
-})
-telescope.load_extension("fzf")
-telescope.load_extension("ui-select")
+-- local install_telescope_fzf = function(ev)
+-- 	local name, kind = ev.data.spec.name, ev.data.kind
+-- 	if name == "telescope-fzf-native.nvim" and (kind == "install" or kind == "update") then
+-- 		vim.system({ "make" }, { cwd = ev.data.path }):wait()
+-- 	end
+-- end
+-- vim.api.nvim_create_autocmd("PackChanged", { callback = install_telescope_fzf })
+-- vim.pack.add({ gh("nvim-lua/plenary.nvim") })
+-- vim.pack.add({ gh("nvim-telescope/telescope-fzf-native.nvim") })
+-- vim.pack.add({ gh("nvim-telescope/telescope.nvim") })
+-- vim.pack.add({ gh("nvim-telescope/telescope-ui-select.nvim") })
+-- local telescope = require("telescope")
+-- telescope.setup({
+-- 	extensions = {
+-- 		fzf = {},
+-- 		["ui-select"] = {
+-- 			require("telescope.themes").get_dropdown({}),
+-- 		},
+-- 	},
+-- 	defaults = {
+-- 		file_ignore_patterns = { "node_modules", "venv", "__pycache__" },
+-- 	},
+-- })
+-- telescope.load_extension("fzf")
+-- telescope.load_extension("ui-select")
 
-local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find FIles" })
-vim.keymap.set("n", "<C-b>", builtin.buffers, {})
-vim.keymap.set("n", "<C-h>", builtin.command_history, {desc =  "Command History"})
-vim.keymap.set("n", "<leader>mp", builtin.man_pages,  {desc = "Man Page"})
-vim.keymap.set("n", "<leader>fg", builtin.live_grep,  {desc = "Live Grep"})
+-- local builtin = require("telescope.builtin")
+-- vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find FIles" })
+-- vim.keymap.set("n", "<C-b>", builtin.buffers, {})
+-- vim.keymap.set("n", "<C-h>", builtin.command_history, {desc =  "Command History"})
+-- vim.keymap.set("n", "<leader>mp", builtin.man_pages,  {desc = "Man Page"})
+-- vim.keymap.set("n", "<leader>fg", builtin.live_grep,  {desc = "Live Grep"})
 ---------
 
 -- NEO TREE --
@@ -424,5 +425,17 @@ vim.keymap.set("n", "<leader>ab", ":ClaudeCodeAdd %<CR>", { desc = "Add current 
 vim.keymap.set("v", "<leader>as", ":ClaudeCodeSend<CR>", { desc = "Send to Claude" })
 vim.keymap.set("n", "<leader>aa", ":ClaudeCodeDiffAccept<CR>", { desc = "Accept diff" })
 vim.keymap.set("n", "<leader>ad", ":ClaudeCodeDiffDeny<CR>", { desc = "Deny diff" })
+
+
+-- Java/ jdtls --
+vim.pack.add({gh ("/mfussenegger/nvim-jdtls")})
+
+
+-- Vim Diagnostics --
+--vim.pack.add({gh("/rachartier/tiny-inline-diagnostic.nvim")})
+--local diag = require("tiny-inline-diagnostic") 
+--diag.setup({
+--  vim.diagnostic.config({virtual_text = false})
+--})
 
 --------

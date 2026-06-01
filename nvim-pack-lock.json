@@ -61,6 +61,10 @@
       "rev": "e2cb22089cc2358b2b995c09578224f142de6039",
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
+    "nvim-jdtls": {
+      "rev": "6e9d953f0b82bccdb834cfde0e893f3119c22592",
+      "src": "https://github.com//mfussenegger/nvim-jdtls"
+    },
     "nvim-lspconfig": {
       "rev": "31026a13eefb20681124706a79fc1df6bf11ab27",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -104,6 +108,10 @@
     "telescope.nvim": {
       "rev": "506338434fec5ad19cb1f8d45bf92d66c4917393",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "tiny-inline-diagnostic.nvim": {
+      "rev": "680762989e8b05a72e90769959d0fb9a557e6917",
+      "src": "https://github.com//rachartier/tiny-inline-diagnostic.nvim"
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
