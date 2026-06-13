@@ -73,10 +73,19 @@ vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
 ----- Colorscheme ------
 vim.pack.add({ gh("EdenEast/nightfox.nvim") })
 vim.cmd.colorscheme("nordfox")
+
+
 -- vim.pack.add({gh("craftzdog/solarized-osaka.nvim")})
 -- vim.cmd.colorscheme("solarized-osaka")
 
 -- vim.cmd.colorscheme("retrobox")
+
+vim.pack.add({
+  gh("/ellisonleao/gruvbox.nvim")
+})
+require("gruvbox").setup()
+vim.cmd.colorscheme("gruvbox")
+
 
 vim.pack.add({ gh("/nvim-lualine/lualine.nvim") })
 require("lualine").setup({
@@ -430,6 +439,18 @@ vim.keymap.set("n", "<leader>ad", ":ClaudeCodeDiffDeny<CR>", { desc = "Deny diff
 -- Java/ jdtls --
 vim.pack.add({gh ("/mfussenegger/nvim-jdtls")})
 
+
+-- Mini Pairs
+vim.pack.add({gh("/nvim-mini/mini.pairs")})
+require('mini.pairs').setup()
+
+-- Trouble
+
+vim.pack.add({gh("/folke/trouble.nvim")})
+
+
+-- Gitsigns 
+vim.pack.add({gh("/lewis6991/gitsigns.nvim")})
 
 -- Vim Diagnostics --
 --vim.pack.add({gh("/rachartier/tiny-inline-diagnostic.nvim")})
