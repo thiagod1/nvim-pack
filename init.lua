@@ -71,20 +71,29 @@ end
 vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
 
 ----- Colorscheme ------
-vim.pack.add({ gh("EdenEast/nightfox.nvim") })
-vim.cmd.colorscheme("nordfox")
+--Nord
+--vim.pack.add({ gh("EdenEast/nightfox.nvim") })
+--vim.cmd.colorscheme("nordfox")
 
-
+-- Solarized Osaka
 -- vim.pack.add({gh("craftzdog/solarized-osaka.nvim")})
 -- vim.cmd.colorscheme("solarized-osaka")
 
--- vim.cmd.colorscheme("retrobox")
+-- Gruvbox
+--vim.pack.add({
+--  gh("/ellisonleao/gruvbox.nvim")
+--})
+--require("gruvbox").setup()
+--vim.cmd.colorscheme("gruvbox")
 
-vim.pack.add({
-  gh("/ellisonleao/gruvbox.nvim")
-})
-require("gruvbox").setup()
-vim.cmd.colorscheme("gruvbox")
+
+-- Miasma
+
+vim.pack.add({gh("/OldJobobo/miasma.nvim")})
+require('miasma').setup()
+vim.cmd.colorscheme("miasma")
+
+
 
 
 vim.pack.add({ gh("/nvim-lualine/lualine.nvim") })
