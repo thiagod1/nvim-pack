@@ -99,6 +99,10 @@ vim.api.nvim_set_hl(0, "LineNr",  {bg = "NONE"})
 vim.api.nvim_set_hl(0, "SignColumn",  {bg = "NONE"})
 vim.api.nvim_set_hl(0, "CursorLineNr",  {bg = "NONE"})
 vim.api.nvim_set_hl(0, "GitSignsAdd",  {bg = "NONE"})
+vim.api.nvim_set_hl(0, "GitSignsChange",  {bg = "NONE"})
+vim.api.nvim_set_hl(0, "GitSignsDelete",  {bg = "NONE"})
+vim.api.nvim_set_hl(0, "SignColumn",  {bg = "NONE"})
+
 
 
 
