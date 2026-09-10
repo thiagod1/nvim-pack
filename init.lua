@@ -1,8 +1,5 @@
 ---- Options ------
-vim.o.guicursor = ""
-vim.g.mapleader = " "
-vim.o.number = true
-vim.o.rnu = true
+vim.o.guicursor = "" vim.g.mapleader = " " vim.o.number = true vim.o.rnu = true
 vim.o.autoindent = true
 vim.o.autocomplete = true
 vim.o.hlsearch = false
@@ -24,12 +21,21 @@ vim.diagnostic.config({virtual_text = true})
 
 ----- Keymaps ------
 
+vim.diagnostic.config({
+  virtual_text = true,
+})
 -- MOVE LINES UP AND DOWN
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
 
--- CTRL-C = ESC
+-- CTRL-C = ESC and CTRL-W save
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Esc" })
+vim.keymap.set("n", "<C-w>", ":write<CR>",   { desc = "w" })
+vim.keymap.set( {"i", "v", "s", "x", "c","n"}, "<Esc>", function()
+  vim.api.nvim_echo({ { "Press CTRL C to Escape", "WarningMsg"} },
+  true, {})
+--  vim.notify("Press CTRL C to Escape")
+end)
 
 -- COPY TO CLIPBOARD
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Copy to Clipboard" })
@@ -71,6 +77,67 @@ end
 vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
 
 ----- Colorscheme ------
+-- Fallback, and the colorscheme used if the Omarchy theme can't be read.
+--vim.pack.add({gh("kepano/flexoki-neovim")})
+--vim.cmd.colorscheme("flexoki")
+
+-- Follow the current Omarchy theme, live. :OmarchyTheme re-syncs by hand.
+--require("omarchy_theme").setup()
+
+-- aether no config
+--vim.pack.add({gh("omacom/aether.nvim")})
+--vim.cmd.colorscheme("aether")
+
+
+-- White Air
+--vim.pack.add({
+--  { src = "https://github.com/bjarneo/aether.nvim" , version = "v3"},
+--})
+--require("aether").setup({
+--  transparent = false,
+--  -- v3 renamed the palette; base00-base0F from the Omarchy spec are ignored here.
+--  colors = {
+--    bg = "#ffffff",          -- base00 Default Background
+--    lighter_bg = "#f1f5f9",  -- base01 Lighter Background
+--    selection = "#cbd5e1",   -- base02 Selection Background
+--    muted = "#94a3b8",       -- base03 Comments, Line Numbers
+--    dark_fg = "#64748b",     -- base04 Dark Foreground
+--    fg = "#1e293b",          -- base05 Default Foreground
+--    light_fg = "#0f172a",    -- base06 Light Foreground
+--    bright_fg = "#ffffff",   -- base07 Light Background
+--
+--    red = "#e11d48",         -- base08 Variables, Errors
+--    orange = "#ea580c",      -- base09 Numbers, Constants
+--    yellow = "#d97706",      -- base0A Classes, Types
+--    green = "#059669",       -- base0B Strings
+--    cyan = "#0284c7",        -- base0C Regex, Escapes
+--    blue = "#0a64f5",        -- base0D Functions, Methods
+--    purple = "#7c3aed",      -- base0E Keywords, Tags
+--    brown = "#d97706",       -- base0F Deprecated
+--
+--    -- v3-only keys with no base16 counterpart
+--    background = "#ffffff",
+--    foreground = "#1e293b",
+--    cursor = "#1e293b",
+--    accent = "#0a64f5",
+--    selection_background = "#cbd5e1",
+--    selection_foreground = "#1e293b",
+--    dark_bg = "#f8fafc",
+--    darker_bg = "#f1f5f9",
+--
+--    bright_red = "#f43f5e",
+--    bright_yellow = "#f59e0b",
+--    bright_green = "#10b981",
+--    bright_cyan = "#0ea5e9",
+--    bright_blue = "#3b82f6",
+--    bright_purple = "#8b5cf6",
+--  },
+--})
+--vim.cmd.colorscheme("aether")
+
+-- Moonfly
+--vim.pack.add({gh('bluz71/vim-moonfly-colors')})
+--vim.cmd.colorscheme("moonfly")
 --Nord
 --vim.pack.add({ gh("EdenEast/nightfox.nvim") })
 --vim.cmd.colorscheme("nordfox")
@@ -86,13 +153,16 @@ vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
 --require("gruvbox").setup()
 --vim.cmd.colorscheme("gruvbox")
 
+-- Rose pine
+--vim.pack.add({gh("/rose-pine/neovim")})
+--vim.cmd.colorscheme("rose-pine")
 
 -- Miasma
-
-vim.pack.add({gh("/OldJobobo/miasma.nvim")})
-require('miasma').setup()
-vim.cmd.colorscheme("miasma")
-
+--vim.pack.add({gh("/OldJobobo/miasma.nvim")})
+--require('miasma').setup()
+--vim.cmd.colorscheme("miasma")
+vim.pack.add({gh('catppuccin/nvim')})
+vim.cmd.colorscheme("catppuccin")
 
 -- This removes the background to make it look better 
 vim.api.nvim_set_hl(0, "LineNr",  {bg = "NONE"})
@@ -178,8 +248,7 @@ require("nvim-highlight-colors").setup({
 
 	---Highlight rgb colors, e.g. 'rgb(0 0 0)'
 	enable_rgb = true,
-
-	---Highlight hsl colors, e.g. 'hsl(150deg 30% 40%)'
+---Highlight hsl colors, e.g. 'hsl(150deg 30% 40%)'
 	enable_hsl = true,
 
 	-- Highlight hsl colors without function, e.g. '--foreground: 0 69% 69%;'
@@ -373,6 +442,63 @@ dap.configurations.gdscript = {
 	},
 }
 
+-- C / C++ via codelldb (installed through Mason) --
+dap.adapters.codelldb = {
+	type = "server",
+	port = "${port}",
+	executable = {
+		command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
+		args = { "--port", "${port}" },
+	},
+}
+dap.configurations.c = {
+	{
+		name = "Launch",
+		type = "codelldb",
+		request = "launch",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+		args = {},
+	},
+}
+dap.configurations.cpp = dap.configurations.c
+
+-- DAP UI + virtual text --
+vim.pack.add({
+	gh("rcarriga/nvim-dap-ui"),
+	gh("nvim-neotest/nvim-nio"),
+	gh("theHamsta/nvim-dap-virtual-text"),
+})
+local dapui = require("dapui")
+dapui.setup()
+require("nvim-dap-virtual-text").setup()
+
+-- auto open/close the UI on session start/end
+dap.listeners.before.attach.dapui_config = function() dapui.open() end
+dap.listeners.before.launch.dapui_config = function() dapui.open() end
+dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
+dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
+
+-- DAP keymaps --
+vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
+vim.keymap.set("n", "<leader>dB", function()
+	dap.set_breakpoint(vim.fn.input("Condition: "))
+end, { desc = "Conditional Breakpoint" })
+vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Continue / Start" })
+vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "Step Into" })
+vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "Step Over" })
+vim.keymap.set("n", "<leader>dO", dap.step_out, { desc = "Step Out" })
+vim.keymap.set("n", "<leader>dr", dap.repl.toggle, { desc = "Toggle REPL" })
+vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Run Last" })
+vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Toggle DAP UI" })
+vim.keymap.set("n", "<leader>dt", dap.terminate, { desc = "Terminate" })
+vim.keymap.set({ "n", "v" }, "<leader>de", function()
+	require("dapui").eval()
+end, { desc = "Eval Expression" })
+
 -- TELESCOPE --
 -- local install_telescope_fzf = function(ev)
 -- 	local name, kind = ev.data.spec.name, ev.data.kind
@@ -430,6 +556,7 @@ local wk = require('which-key')
 wk.add({
         {"<leader>a", group = "AI"}, 
         {"<leader>c", group = "Code"},
+        {"<leader>d", group = "Debug"},
         {"<leader>f", group = "Files"},
         {"<leader>m", group = "Manual"},
         {"<leader>g", group = "Format"},
@@ -437,7 +564,6 @@ wk.add({
         {"<leader>t", group = "Terminal"}
 
 })
-
 
 vim.pack.add({
 	gh("coder/claudecode.nvim"),
@@ -462,8 +588,8 @@ vim.pack.add({gh ("/mfussenegger/nvim-jdtls")})
 
 
 -- Mini Pairs
-vim.pack.add({gh("/nvim-mini/mini.pairs")})
-require('mini.pairs').setup()
+--vim.pack.add({gh("/nvim-mini/mini.pairs")})
+--require('mini.pairs').setup()
 
 -- Trouble
 
@@ -472,6 +598,8 @@ vim.pack.add({gh("/folke/trouble.nvim")})
 
 -- Gitsigns 
 vim.pack.add({gh("/lewis6991/gitsigns.nvim")})
+
+
 
 -- Vim Diagnostics --
 --vim.pack.add({gh("/rachartier/tiny-inline-diagnostic.nvim")})
