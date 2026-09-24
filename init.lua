@@ -28,9 +28,9 @@ vim.diagnostic.config({
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
 
--- CTRL-C = ESC and CTRL-W save
+-- CTRL-C = ESC and CTRL-S save
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Esc" })
-vim.keymap.set("n", "<C-w>", ":write<CR>",   { desc = "w" })
+vim.keymap.set({ "n", "i" }, "<C-s>", "<Esc>:write<CR>", { desc = "Save" })
 vim.keymap.set( {"i", "v", "s", "x", "c","n"}, "<Esc>", function()
   vim.api.nvim_echo({ { "Press CTRL C to Escape", "WarningMsg"} },
   true, {})
@@ -161,7 +161,12 @@ vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
 --vim.pack.add({gh("/OldJobobo/miasma.nvim")})
 --require('miasma').setup()
 --vim.cmd.colorscheme("miasma")
+
+-- Cattppucin
 vim.pack.add({gh('catppuccin/nvim')})
+require('catppuccin').setup({
+  transparent_background = true
+})
 vim.cmd.colorscheme("catppuccin")
 
 -- This removes the background to make it look better 
@@ -177,11 +182,10 @@ vim.api.nvim_set_hl(0, "SignColumn",  {bg = "NONE"})
 
 
 
-
 vim.pack.add({ gh("/nvim-lualine/lualine.nvim") })
 require("lualine").setup({
 	options = {
-		theme = "nightfox",
+		theme = "catppuccin",
 	},
 })
 vim.pack.add({ gh("nvim-lua/plenary.nvim") })
@@ -370,6 +374,8 @@ vim.pack.add({
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
+                "eslint",
+                "emmet_language_server",
 		"lua_ls",
 		-- "pyright",
 		-- "pylsp",
@@ -379,7 +385,7 @@ require("mason-lspconfig").setup({
 		"jsonls",
 		"cssls",
 		"tailwindcss",
-		"ts_ls",
+		--"ts_ls",
 		"clangd",
 		--"htmx",
 		"denols",
@@ -525,7 +531,7 @@ end, { desc = "Eval Expression" })
 -- })
 -- telescope.load_extension("fzf")
 -- telescope.load_extension("ui-select")
-
+--
 -- local builtin = require("telescope.builtin")
 -- vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find FIles" })
 -- vim.keymap.set("n", "<C-b>", builtin.buffers, {})
@@ -561,7 +567,8 @@ wk.add({
         {"<leader>m", group = "Manual"},
         {"<leader>g", group = "Format"},
         {"<leader>s", group = "Split Terminal"},
-        {"<leader>t", group = "Terminal"}
+        {"<leader>t", group = "Terminal"},
+        {"<leader>x", group = "Trouble"}
 
 })
 
@@ -594,6 +601,17 @@ vim.pack.add({gh ("/mfussenegger/nvim-jdtls")})
 -- Trouble
 
 vim.pack.add({gh("/folke/trouble.nvim")})
+local trouble = require("trouble")
+trouble.setup({
+	win = {
+		type = "float",
+		border = "rounded",
+		position = { "50%", "50%" },
+		size = { width = 0.6, height = 0.5 },
+	},
+})
+vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics (Trouble)" })
+vim.keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", { desc = "Buffer Diagnostics (Trouble)" })
 
 
 -- Gitsigns 
