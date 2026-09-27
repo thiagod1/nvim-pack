@@ -6,7 +6,16 @@
     },
     "aether.nvim": {
       "rev": "567efb778534e11ee1072d4fe27178f705a27d8a",
-      "src": "https://bjarneo/aether.nvim"
+      "src": "https://github.com/bjarneo/aether.nvim",
+      "version": "'v3'"
+    },
+    "blink.cmp": {
+      "rev": "473c928d8b9b5b3f638cd085a01899972cf205c6",
+      "src": "https://github.com/saghen/blink.cmp"
+    },
+    "blink.lib": {
+      "rev": "fd9a48ebbe6ec30d5dfcc5b42c243941ccdca1aa",
+      "src": "https://github.com/saghen/blink.lib"
     },
     "claudecode.nvim": {
       "rev": "102d835c964069c9c5e37abaf05ae4f9c3ee6f00",
@@ -68,6 +77,10 @@
     "neovim": {
       "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com//rose-pine/neovim"
+    },
+    "neovim-ayu": {
+      "rev": "e5a9f0fa2918d6b5f57c21b3ac014314ee5e41c8",
+      "src": "https://github.com/Shatur/neovim-ayu"
     },
     "nightfox.nvim": {
       "rev": "26b61b1f856ec37cae3cb64f5690adb955f246a1",
@@ -160,6 +173,10 @@
     "tiny-inline-diagnostic.nvim": {
       "rev": "680762989e8b05a72e90769959d0fb9a557e6917",
       "src": "https://github.com//rachartier/tiny-inline-diagnostic.nvim"
+    },
+    "tokyonight.nvim": {
+      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
+      "src": "https://github.com/folke/tokyonight.nvim"
     },
     "trouble.nvim": {
       "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",

@@ -1,12 +1,11 @@
 ---- Options ------
 vim.o.guicursor = "" vim.g.mapleader = " " vim.o.number = true vim.o.rnu = true
 vim.o.autoindent = true
-vim.o.autocomplete = true
+--vim.o.autocomplete = true
 vim.o.hlsearch = false
 vim.o.expandtab = true
 vim.o.incsearch = true
 
-vim.o.sidescrolloff = 32
 
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
@@ -21,9 +20,9 @@ vim.diagnostic.config({virtual_text = true})
 
 ----- Keymaps ------
 
-vim.diagnostic.config({
-  virtual_text = true,
-})
+--vim.diagnostic.config({
+--  virtual_text = true,
+--})
 -- MOVE LINES UP AND DOWN
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
@@ -45,9 +44,9 @@ vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copy to clipboard" })
 vim.keymap.set("n", "<leader>tr", ":term<CR>i", { desc = "Open terminal Window" })
 vim.keymap.set("n", "<leader>st", function()
 	vim.cmd.vnew()
-	vim.cmd.term()
-	vim.cmd.wincmd("L")
-	vim.api.nvim_win_set_width(0, 100)
+--	vim.cmd.term()
+--	vim.cmd.wincmd("L")
+--	vim.api.nvim_win_set_width(0, 100)
 end)
 vim.keymap.set("t", "<C-x>", "<C-\\><C-n>")
 
@@ -88,6 +87,12 @@ vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
 --vim.pack.add({gh("omacom/aether.nvim")})
 --vim.cmd.colorscheme("aether")
 
+--opencode 
+--vim.pack.add({ gh("folke/tokyonight.nvim") })
+--vim.cmd.colorscheme("tokyonight-night")
+
+--vim.pack.add({ gh("Shatur/neovim-ayu") })
+--vim.cmd.colorscheme("ayu-dark")  -- or "ayu-dark" for a darker bg
 
 -- White Air
 --vim.pack.add({
@@ -252,7 +257,7 @@ require("nvim-highlight-colors").setup({
 
 	---Highlight rgb colors, e.g. 'rgb(0 0 0)'
 	enable_rgb = true,
----Highlight hsl colors, e.g. 'hsl(150deg 30% 40%)'
+        ---Highlight hsl colors, e.g. 'hsl(150deg 30% 40%)'
 	enable_hsl = true,
 
 	-- Highlight hsl colors without function, e.g. '--foreground: 0 69% 69%;'
@@ -425,7 +430,7 @@ vim.lsp.config.tailwindcss = {
 	include_languages = { html = "templ" },
 	capabilities = capabilities,
 }
-vim.diagnostic.config({ underline = false })
+vim.diagnostic.config({ underline = true})
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
