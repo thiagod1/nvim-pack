@@ -10,6 +10,7 @@ vim.o.incsearch = true
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 vim.o.smartindent = true
+vim.opt.termguicolors = true
 
 
 vim.opt.scrolloff = 8
