@@ -142,8 +142,9 @@ vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
 --vim.cmd.colorscheme("aether")
 
 -- Moonfly
---vim.pack.add({gh('bluz71/vim-moonfly-colors')})
---vim.cmd.colorscheme("moonfly")
+vim.pack.add({gh('bluz71/vim-moonfly-colors')})
+vim.g.moonflyTransparent = true
+vim.cmd.colorscheme("moonfly")
 --Nord
 --vim.pack.add({ gh("EdenEast/nightfox.nvim") })
 --vim.cmd.colorscheme("nordfox")
@@ -169,11 +170,12 @@ vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
 --vim.cmd.colorscheme("miasma")
 
 -- Cattppucin
-vim.pack.add({gh('catppuccin/nvim')})
-require('catppuccin').setup({
-  transparent_background = true
-})
-vim.cmd.colorscheme("catppuccin")
+--vim.pack.add({gh('catppuccin/nvim')})
+--require('catppuccin').setup({
+--  transparent_background = true,
+--  flavour = "Latte"
+--})
+--vim.cmd.colorscheme("catppuccin")
 
 -- This removes the background to make it look better 
 vim.api.nvim_set_hl(0, "LineNr",  {bg = "NONE"})
@@ -191,7 +193,7 @@ vim.api.nvim_set_hl(0, "SignColumn",  {bg = "NONE"})
 vim.pack.add({ gh("/nvim-lualine/lualine.nvim") })
 require("lualine").setup({
 	options = {
-		theme = "catppuccin",
+		theme = "auto",
 	},
 })
 vim.pack.add({ gh("nvim-lua/plenary.nvim") })
@@ -391,11 +393,15 @@ require("mason-lspconfig").setup({
 		"jsonls",
 		"cssls",
 		"tailwindcss",
-		--"ts_ls",
+		"vtsls",
 		"clangd",
 		--"htmx",
 		"denols",
 		-- "rust_analyzer",
+	},
+	-- ts_ls is also installed; running it alongside vtsls duplicates completions and definitions
+	automatic_enable = {
+		exclude = { "ts_ls" },
 	},
 })
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -512,38 +518,38 @@ vim.keymap.set({ "n", "v" }, "<leader>de", function()
 end, { desc = "Eval Expression" })
 
 -- TELESCOPE --
--- local install_telescope_fzf = function(ev)
--- 	local name, kind = ev.data.spec.name, ev.data.kind
--- 	if name == "telescope-fzf-native.nvim" and (kind == "install" or kind == "update") then
--- 		vim.system({ "make" }, { cwd = ev.data.path }):wait()
--- 	end
--- end
--- vim.api.nvim_create_autocmd("PackChanged", { callback = install_telescope_fzf })
--- vim.pack.add({ gh("nvim-lua/plenary.nvim") })
--- vim.pack.add({ gh("nvim-telescope/telescope-fzf-native.nvim") })
--- vim.pack.add({ gh("nvim-telescope/telescope.nvim") })
--- vim.pack.add({ gh("nvim-telescope/telescope-ui-select.nvim") })
--- local telescope = require("telescope")
--- telescope.setup({
--- 	extensions = {
--- 		fzf = {},
--- 		["ui-select"] = {
--- 			require("telescope.themes").get_dropdown({}),
--- 		},
--- 	},
--- 	defaults = {
--- 		file_ignore_patterns = { "node_modules", "venv", "__pycache__" },
--- 	},
--- })
--- telescope.load_extension("fzf")
--- telescope.load_extension("ui-select")
---
--- local builtin = require("telescope.builtin")
--- vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find FIles" })
--- vim.keymap.set("n", "<C-b>", builtin.buffers, {})
--- vim.keymap.set("n", "<C-h>", builtin.command_history, {desc =  "Command History"})
--- vim.keymap.set("n", "<leader>mp", builtin.man_pages,  {desc = "Man Page"})
--- vim.keymap.set("n", "<leader>fg", builtin.live_grep,  {desc = "Live Grep"})
+local install_telescope_fzf = function(ev)
+	local name, kind = ev.data.spec.name, ev.data.kind
+	if name == "telescope-fzf-native.nvim" and (kind == "install" or kind == "update") then
+		vim.system({ "make" }, { cwd = ev.data.path }):wait()
+	end
+end
+vim.api.nvim_create_autocmd("PackChanged", { callback = install_telescope_fzf })
+vim.pack.add({ gh("nvim-lua/plenary.nvim") })
+vim.pack.add({ gh("nvim-telescope/telescope-fzf-native.nvim") })
+vim.pack.add({ gh("nvim-telescope/telescope.nvim") })
+vim.pack.add({ gh("nvim-telescope/telescope-ui-select.nvim") })
+local telescope = require("telescope")
+telescope.setup({
+	extensions = {
+		fzf = {},
+		["ui-select"] = {
+			require("telescope.themes").get_dropdown({}),
+		},
+	},
+	defaults = {
+		file_ignore_patterns = { "node_modules", "venv", "__pycache__" },
+	},
+})
+telescope.load_extension("fzf")
+telescope.load_extension("ui-select")
+
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find FIles" })
+vim.keymap.set("n", "<C-b>", builtin.buffers, {})
+vim.keymap.set("n", "<C-h>", builtin.command_history, {desc =  "Command History"})
+vim.keymap.set("n", "<leader>mp", builtin.man_pages,  {desc = "Man Page"})
+vim.keymap.set("n", "<leader>fg", builtin.live_grep,  {desc = "Live Grep"})
 ---------
 
 -- NEO TREE --
